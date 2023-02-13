@@ -1,0 +1,104 @@
+/* Navigation */
+nav ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    background: #E6AACE;
+    font-family:'Segoe UI', Lucida Sans Unicode;
+  }
+  
+  /* nav ul a:active {
+    color: #f50549;
+  } */
+
+nav ul a:hover {
+  background-color: #344966;
+  color: #BFCC94;
+}
+  
+  .welcome {
+    text-align: center;
+  }
+  
+  .container {
+    margin: auto;
+  }
+
+  h1 {
+    text-shadow: 1px 1px 0px #906fdc;
+    color: #344966;
+    font-family: Lucida Sans Unicode;
+  }
+
+  p {
+    color: #344966;
+    font-family: monospace, helvetica;
+  }
+  
+  .message_ok {
+    background-color: #BFCC94;
+  }
+  
+  .message_error {
+    background-color: #f50549;
+  }
+  
+  /* Form styles */
+  
+  label {
+    display: block;
+  }
+  
+  label abbr {
+    color: #f50549;
+  }
+  
+  input:invalid {
+    border: 2px dashed #f50549;
+  }
+  
+  input:valid {
+    border: 1px solid #BFCC94;
+  }
+  
+  /* TABLE */
+  table {
+    margin: 25px auto;
+    border-collapse: collapse;
+    border: 1px solid #eee;
+    border-bottom: 2px solid #344966;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.05),
+      0px 20px 20px rgba(0, 0, 0, 0.05), 0px 30px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  th,
+  td {
+    color: #999;
+    border: 1px solid #eee;
+    padding: 12px 35px;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .total {
+    text-align: right;
+  }
+  
+  tr:hover {
+    background: #f4f4f4;
+  }
+  td:hover {
+    color: #555;
+  }
+  
+  thead th {
+    background: #344966;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  
+  .highlight {
+    background: yellow;
+  }
+  
+  /* https://www.w3schools.com/css/tryit.asp?filename=trycss_dropdown_navbar2 */
