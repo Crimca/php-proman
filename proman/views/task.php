@@ -25,15 +25,15 @@ if(isset($confirm_message)) {
         <strong><abbr title="required">*</abbr></strong>
 </label>
 
-<select name="project" id="project required>
-<option value=">Select a project:</option>
-<?php foreach (projects as $project) { ?>
+<select name="project" id="project required">
+<option value="">Select a project:</option>
+<?php foreach ($projects as $project) { ?>
     <option value="<?php echo $project['id'] ?>">
-    <?php echo $project['title'] ?></option>
+    <?php echo $project['title'] ?>
+</option>
     <?php } ?>
 </select>
 
-<input type="text" placeholder="New project" name="project_name" id="project_name" required>
 <label for="category">
     <span>Title:</span>
     <strong><abbr title="required">*</abbr></strong>

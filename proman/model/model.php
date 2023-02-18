@@ -120,20 +120,6 @@ function get_all_tasks()
         echo $sql . "<br>" . $err->getMessage();
         exit;
     }
-
-
-// {
-//     try {
-//         global $connection;
-
-//         $sql = 'SELECT * FROM tasks ORDER BY title';
-//         $tasks = $connection->query($sql);
-
-//         return $tasks;
-//     } catch (PDOException $err) {
-//         echo $sql . "<br>" . $err->getMessage();
-//         exit;
-//     }
 }
 
 function get_all_tasks_count()
@@ -154,16 +140,16 @@ function get_all_tasks_count()
 
 // --- ADD TASK ---
 
-function add_task($title, $category)
+function add_task($project_id, $title, $date_task, $time_task)
 {
     try {
         global $connection;
-        $sql = 'INSERT INTO tasks(project, title, date_task, time_task) VALUES(?, ?, ?, ?)';
+        $sql = 'INSERT INTO tasks(project_id, title, date_task, time_task) VALUES(?, ?, ?, ?)';
 
         $statement = $connection->prepare($sql);
-        $new_project = array($title, $category);
+        $new_task = array($project_id, $title, $date_task, $time_task);
 
-        $affectedLines = $statement->execute($new_project);
+        $affectedLines = $statement->execute($new_task);
 
         return $affectedLines;
     } catch (PDOException $err) {

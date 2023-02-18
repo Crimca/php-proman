@@ -16,7 +16,7 @@ if (isset($_POST['id'])) {
 }
 
     $title = escape(trim($_POST['title']));
-    $category = escape($_POST['category']);
+    $category = escape(trim($_POST['category']));
 
     if (empty($title) || empty($category)) {
         $error_message = "Title or category empty";

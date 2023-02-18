@@ -1,24 +1,28 @@
 <?php
 require_once "../model/model.php";
 require "common.php";
-
-$projects = get_all_projects(); //opettajan koodia vaihe 7
+$task_title = '';
+$projects = get_all_projects();
 
 if(isset($_POST['submit'])) {
-    $id = escape(trim($_POST['project']));
-    $title = escape($_POST['title']);
-    $date = escape($_POST['date']);
-    $time = escape($_POST['time']);
+    $project_id = escape(trim($_POST['project']));
+    $title = escape(trim($_POST['task_name']));
+    $date_task = escape(($_POST['task_date']));
+    $time_task = escape(trim($_POST['task_time']));
 
-    if (empty($title) || empty($date)) {
+    if (empty($title) || empty($date_task)) {
         $error_message = "Title or date is empty";
+    } elseif (empty($project_id)) {
+        $error_message = "Please choose a project";
+    } elseif (empty($time_task)) {
+        $error_message = "Please choose a time for the task";
     } else {
         if (titleExists("tasks", $title)) {
             $error_message = "I'm sorry, but looks like \"" . $title . "\" already exists";
         } else {
-        add_task($project, $title, $date, $time);
-        header('Refresh:4; url=task_list.php');
-        $confirm_message = 'Task added successfully! Moving to task list...';
+            add_task($project_id, $title, $date_task, $time_task);
+            header('Refresh:4; url=task_list.php');
+            $confirm_message = 'Task added successfully! Moving to task list...';
         }
     }
 }
