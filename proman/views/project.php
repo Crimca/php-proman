@@ -23,7 +23,7 @@ if(isset($confirm_message)) {
 }
 ?>
 
-<form method="post">
+<form name="new-form" method="post">
     <label for="title">
         <span>Title:</span>
         <strong><abbr title="required">*</abbr></strong>
@@ -43,6 +43,7 @@ value="<?php echo $project_title; ?>" required>
     <option value="School"
     <?php if ($category == "School") {echo ' selected';} ?>>School</option>
 </select>
+
 <?php if (!empty($id)) { ?>
     <input type="hidden" name="id" value="<?php echo $id ?>" />
     <?php } ?>

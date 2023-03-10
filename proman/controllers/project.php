@@ -33,7 +33,7 @@ if (isset($_POST['id'])) {
         }
     }
     else {
-        $error_message = "There's something wrong";;
+        $error_message = "There's something wrong";
         }
     }
  }

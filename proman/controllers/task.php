@@ -2,6 +2,18 @@
 require_once "../model/model.php";
 require "common.php";
 $task_title = '';
+
+if (isset($_GET['id'])) {
+    list($id, $project_title, $category) = get_task($_GET['id']);
+}
+
+if(isset($_POST['submit'])) {
+    $id = null;
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+}
+}
+
 $projects = get_all_projects();
 
 if(isset($_POST['submit'])) {
@@ -18,11 +30,16 @@ if(isset($_POST['submit'])) {
         $error_message = "Please choose a time for the task";
     } else {
         if (titleExists("tasks", $title)) {
-            $error_message = "I'm sorry, but looks like \"" . $title . "\" already exists";
+            $error_message = "I'm sorry, but it looks like '" . $title . "' already exists";
         } else {
-            add_task($project_id, $title, $date_task, $time_task);
-            header('Refresh:4; url=task_list.php');
-            $confirm_message = 'Task added successfully! Moving to task list...';
+            if (add_task($project_id, $title, $date_task, $time_task, $id)) {
+                header('Refresh:4; url=task_list.php'); 
+                if (!empty($id)) {
+                    $confirm_message = escape($title). ' updated successfully! Moving to task list...';
+                } else {
+                    $confirm_message = escape($title). ' added successfully! Moving to task list...';
+                }
+            }
         }
     }
 }

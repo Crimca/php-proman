@@ -74,8 +74,6 @@ function get_project($id)
     }
 } 
 
-// --- ADD PROJECT ---
-
 function add_project($title, $category, $id)
 {
     try {
@@ -100,6 +98,25 @@ function add_project($title, $category, $id)
         exit;
     }
 }
+
+function delete_project($id)
+{
+    try {
+        global $connection;
+  
+       $sql = 'DELETE FROM projects WHERE id = ?';
+       $project = $connection->prepare($sql);
+       $project->bindValue(1, $id, PDO::PARAM_INT);
+       $project->execute(); 
+
+       return true;
+    } catch (PDOException $exception) {
+        echo $sql . "<br>" . $exception->getMessage();
+        exit;
+    }
+}
+
+
 
 // TASK LIST functions
 function get_all_tasks()
@@ -138,18 +155,116 @@ function get_all_tasks_count()
     }
 }
 
-// --- ADD TASK ---
-
-function add_task($project_id, $title, $date_task, $time_task)
+function get_task($id)
 {
     try {
         global $connection;
+
+        $sql = 'SELECT * FROM tasks WHERE id = ?';
+        $task = $connection->prepare($sql);
+        $task->bindValue(1, $id, PDO::PARAM_INT);
+        $task->execute();
+
+        return $task->fetch();
+
+    } catch (PDOException $exception) {
+        echo $sql . "<br>" . $exception->getMessage();
+        exit;
+    }
+} 
+
+
+// --- ADD TASK ---
+
+function add_task($project_id, $title, $date_task, $time_task, $id)
+{
+    try {
+        global $connection;
+
+        if ($id) {
+            $sql = 'UPDATE tasks SET project_id = ?, title = ?, date_task = ?, time_task = ? WHERE id = ? '; 
+        } else {
         $sql = 'INSERT INTO tasks(project_id, title, date_task, time_task) VALUES(?, ?, ?, ?)';
+        }
 
         $statement = $connection->prepare($sql);
         $new_task = array($project_id, $title, $date_task, $time_task);
 
+        if ($id) {
+            $new_task = array($project_id, $title, $date_task, $time_task, $id);
+        }
+
         $affectedLines = $statement->execute($new_task);
+
+        return $affectedLines;
+    } catch (PDOException $err) {
+        echo $sql . "<br>" . $err->getMessage();
+        exit;
+    }
+}
+
+function delete_task($id)
+{
+    try {
+        global $connection;
+   
+       $sql = 'DELETE FROM tasks WHERE id = ?';
+       $task = $connection->prepare($sql);
+       $task->bindValue(1, $id, PDO::PARAM_INT);
+       $task->execute(); 
+
+       return true;
+    } catch (PDOException $exception) {
+        echo $sql . "<br>" . $exception->getMessage();
+        exit;
+    }
+}
+
+
+// COMMENTS functions
+function get_all_comments()
+{
+    try {
+        global $connection;
+
+        $sql = 'SELECT * FROM comments ORDER BY created_at DESC';
+        $comments = $connection->query($sql);
+    
+
+        return $comments;
+
+    } catch (PDOException $err) {
+        echo $sql . "<br>" . $err->getMessage();
+        exit;
+    }
+}
+
+function get_comments_count()
+{
+    try {
+        global $connection;
+
+        $sql = 'SELECT COUNT(id) AS nb FROM comments';
+        $statement = $connection->query($sql)->fetch();
+
+        $commentsCount = $statement['nb'];
+        return $commentsCount;
+    } catch (PDOException $err) {
+        echo $sql . "<br>" . $err->getMessage();
+        exit;
+    }
+}
+
+function add_comment($id, $username, $email, $comment)
+{
+    try {
+        global $connection;
+
+        $sql = 'INSERT INTO comments(username, email, comment) VALUES(?, ?, ?)';
+        $statement = $connection->prepare($sql);
+        $new_comment = array($username, $email, $comment);
+
+        $affectedLines = $statement->execute($new_comment);
 
         return $affectedLines;
     } catch (PDOException $err) {

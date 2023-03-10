@@ -16,4 +16,12 @@ CREATE TABLE tasks (
     FOREIGN KEY (project_id)
     REFERENCES projects(id)
     ON DELETE CASCADE
-)
+);
+
+CREATE TABLE comments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(15) NOT NULL,
+  email VARCHAR(30) NOT NULL,
+  comment TEXT(300) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

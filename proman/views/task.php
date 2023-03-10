@@ -1,5 +1,9 @@
 <?php
-$title = 'Add Task';
+if (!empty($_GET['id'])) {
+    $title = 'Update Task';
+} else {
+    $title = 'Add Task';
+}
 
 ob_start();
 require "nav.php";
@@ -19,7 +23,7 @@ if(isset($confirm_message)) {
 }
 ?>
 
-<form method="post">
+<form name="new-form" method="post">
     <label for="project">
         <span>Project:</span>
         <strong><abbr title="required">*</abbr></strong>
@@ -51,7 +55,13 @@ if(isset($confirm_message)) {
         <strong><abbr title="required">*</abbr></strong>
 </label>
 <input type="text" name="task_time" id="task_time" required>
-<input type="submit" name="submit" value="Add">
+
+<?php if (!empty($id)) { ?>
+    <input type="hidden" name="id" value="<?php echo $id ?>" />
+    <?php } ?>
+<input type="submit" name="submit"
+value="<?php echo (isset($id) and (!empty($id))) ? "Update" : "Add"; ?>">
+
 </form>
 </div>
 
